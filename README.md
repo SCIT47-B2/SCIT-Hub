@@ -58,6 +58,9 @@ Then, open ```application.properties``` and update the following fields:
 ```server.servlet.context-path=YOUR_CONTEXT_PATH```
 
 ## 🗄 Database (MySQL)
+* **JDBC URL**
+```spring.datasource.url=jdbc:mysql://localhost:(YOUR_CONNECTION_PORT)/(YOUR_CONNECTION_NAME)?useSSL=false&serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=UTF-8```
+
 * **Username**
 ```spring.datasource.username=YOUR_DB_USERNAME```
 
