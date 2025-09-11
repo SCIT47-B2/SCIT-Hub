@@ -173,3 +173,120 @@
 .scheduleList{ margin:0; padding-left:16px; }
 .scheduleList li{ font-size:13px; line-height:1.6; color:#333; }
 .isHidden{ display:none; }
+
+
+/* Modal Styles */
+.modal-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's on top */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: white;
+    color: white;
+    padding: 25px 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #4a5a8a;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* 그리드 레이아웃 */
+.reservation-grid {
+    /* 이 스타일은 JavaScript가 생성하는 reservation-item에서 처리하므로 제거 */
+}
+
+/* 그리드 헤더 */
+.grid-header {
+  display: contents;
+  font-weight: bold;
+  color: #888;
+}
+.grid-header span {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+/* 예약 항목 */
+
+/* 예약 버튼 스타일 */
+.action-button {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+/* 예약 버튼 상태별 스타일 */
+.action-button.reserve {
+    background-color: #4f67d9;
+    color: white;
+}
+.action-button.cancel {
+    background-color: #e53e3e;
+    color: white;
+}
+.action-button.reserved {
+    background-color: #d1d5db;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+
+
+/**/
+.studyroom-modal .modal-body { padding: 20px; color: #333; }
+.studyroom-modal .modal-title { text-align: center; margin-bottom: 20px; font-size: 1.5rem; }
+.grid-header, .reservation-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+.grid-header { font-weight: bold; background-color: #f9f9f9; }
+.header-user, .item-user { text-align: center; }
+.header-action, .reservation-item button { text-align: right; }
+.reservation-item .item-time { font-weight: 500; }
+
+/* 버튼 스타일 */
+.reservation-item button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+.btn-reserve { background-color: #3a5b9a; /* 예약하기 */ }
+.btn-reserve:hover { background-color: #2c4a8a; }
+
+.btn-cancel { background-color: #d9534f; /* 예약취소 */ }
+.btn-cancel:hover { background-color: #c9302c; }
+
+.btn-reserved { background-color: #f0f0f0; color: #aaa; cursor: not-allowed; /* 예약중 */ }

@@ -29,6 +29,10 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query("SELECT r FROM Reservation r WHERE r.startAt >= :start AND r.endAt <= :end")
     List<Reservation> findByDateRange(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
     
+    /** 특정 사용자의 특정 날짜 범위 예약 조회 */
+    @Query("SELECT r FROM Reservation r WHERE r.user.userId = :userId AND r.startAt >= :startOfDay AND r.startAt < :endOfDay")
+    List<Reservation> findByUserAndDate(@Param("userId") Integer userId, @Param("startOfDay") LocalDateTime startOfDay, @Param("endOfDay") LocalDateTime endOfDay);
+
     /** 현재 진행 중인 예약 조회 */
     @Query("SELECT r FROM Reservation r WHERE r.startAt <= :now AND r.endAt > :now")
     List<Reservation> findOngoingReservations(@Param("now") LocalDateTime now);

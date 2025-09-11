@@ -34,11 +34,12 @@
                 <section class="stackCard" aria-label="새로운 질문">
                     <a class="sectionHead" href="question_submit.html">新しい質問</a>
                     <div class="sectionBody">
+                        <!--3일 이내 새로운 Q&A 게시글이 없을 시-->
+                        <p>新しい質問がありません。</p>
                         <div class="askBox" role="search">
                             <input type="text" id="newQuestionInput" placeholder="回答する" aria-label="답변 입력" />
                             <button class="btn-search" type="button" onclick="location.href='question_submit.html'">登録</button>
                         </div>
-                        <!-- <p class="askHint">입력 후 ‘등록’을 누르면 질문 페이지로 이동합니다.</p> -->
                     </div>
                 </section>
             </div>
@@ -60,7 +61,7 @@
                     <div class="seatmap" aria-label="강의실 좌석배치도" style="--cols:16; --rows:10;">
                         <!-- 상단 슬림 라벨 바 -->
                         <div class="block labelBar" style="grid-column:3 / span 9; grid-row:1 / span 1;">大講義室</div>
-                        <div class="block labelBar" style="grid-column:14 / span 3; grid-row:1 / span 1;">多目的<br>ラウンジ</div>
+                        <div class="block labelBar" style="grid-column:14 / span 3; grid-row:1 / span 1;">ラウンジ</div>
 
                         <!-- 세로 복도 3개 -->
                         <div class="corridor" style="grid-column:5  / span 1; grid-row:3 / span 8;"></div>
@@ -68,22 +69,22 @@
                         <div class="corridor" style="grid-column:13 / span 1; grid-row:3 / span 8;"></div>
 
                         <!-- 좌측 세로열 -->
-                        <a class="block small room" href="#" style="grid-column:1 / span 2; grid-row:3 / span 1;">ルーム5</a>
-                        <a class="block small room" href="#" style="grid-column:1 / span 2; grid-row:4 / span 1;">ルーム4</a>
-                        <a class="block small room" href="#" style="grid-column:1 / span 2; grid-row:5 / span 1;">ルーム3</a>
-                        <a class="block small room" href="#" style="grid-column:1 / span 2; grid-row:6 / span 1;">ルーム2</a>
-                        <a class="block small room" href="#" style="grid-column:1 / span 2; grid-row:7 / span 1;">ルーム1</a>
+                        <a class="block small room" style="grid-column:1 / span 2; grid-row:3 / span 1;">ルーム5</a>
+                        <a class="block small room" style="grid-column:1 / span 2; grid-row:4 / span 1;">ルーム4</a>
+                        <a class="block small room" style="grid-column:1 / span 2; grid-row:5 / span 1;">ルーム3</a>
+                        <a class="block small room" style="grid-column:1 / span 2; grid-row:6 / span 1;">ルーム2</a>
+                        <a class="block small room" style="grid-column:1 / span 2; grid-row:7 / span 1;">ルーム1</a>
                         <div class="block small gray"  style="grid-column:1 / span 2; grid-row:8 / span 1;">倉庫</div>
                         <div class="block small label" style="grid-column:1 / span 2; grid-row:9 / span 1;">面接室2</div>
                         <div class="block small label" style="grid-column:1 / span 2; grid-row:10 / span 1;">面接室1</div>
 
                         <!-- 좌측 2열 -->
-                        <a class="block small room" href="#" style="grid-column:3 / span 2; grid-row:3 / span 1;">ルーム10</a>
-                        <a class="block small room" href="#" style="grid-column:3 / span 2; grid-row:4 / span 1; background:#cfe0ff;">ルーム9</a>
-                        <a class="block small room" href="#" style="grid-column:3 / span 2; grid-row:5 / span 1;">ルーム8</a>
-                        <a class="block small room" href="#" style="grid-column:3 / span 2; grid-row:6 / span 1;">ルーム7</a>
-                        <a class="block small room" href="#" style="grid-column:3 / span 2; grid-row:7 / span 1;">ルーム6</a>
-                        <div class="block gray" style="grid-column:3 / span 2; grid-row:8 / span 3;">オフィス</div>
+                        <a class="block small room" style="grid-column:3 / span 2; grid-row:3 / span 1;">ルーム10</a>
+                        <a class="block small room reserveBtn" href="#" data-studyroom-id="9" style="grid-column:3 / span 2; grid-row:4 / span 1; background:#cfe0ff; text-decoration: none;">ルーム9</a>
+                        <a class="block small room" style="grid-column:3 / span 2; grid-row:5 / span 1;">ルーム8</a>
+                        <a class="block small room reserveBtn" href="#" data-studyroom-id="7" style="grid-column:3 / span 2; grid-row:6 / span 1; background:#cfe0ff; text-decoration: none;">ルーム7</a>
+                        <a class="block small room reserveBtn" href="#" data-studyroom-id="6" style="grid-column:3 / span 2; grid-row:7 / span 1; background:#cfe0ff; text-decoration: none;">ルーム6</a>
+                        <div class="block gray" style="grid-column:3 / span 2; grid-row:8 / span 3; font-size: 12px;">事務室</div>
 
                         <!-- 가운데 왼 열 -->
                         <div class="block"      style="grid-column:6 / span 3; grid-row:3 / span 2;">講義室4</div>
@@ -117,9 +118,214 @@
                 </section>
             </div>
 
+            <!--스터디룸 예약 모달창-->
+            <div id="reservationModal" class="modal-overlay">
+                <div class="modal-content studyroom-modal">
+                    <button class="close-button">&times;</button>
+                    <div class="modal-body">
+                        <h3 class="modal-title">スタディルーム予約</h3>
+                        <div class="grid-header">
+                            <span class="header-time">時間</span>
+                            <span class="header-user">予約者</span>
+                            <span class="header-action">予約</span>
+                        </div>
+                        <div id="reservationGrid" class="reservation-grid">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </section>
 
+        <!-- Javascript -->
         <th:block layout:fragment="script">
+            <script th:inline="javascript">
+                document.addEventListener('DOMContentLoaded', () => {
+                    /*<![CDATA[*/
+                    const currentUser = /*[[${currentUser}]]*/ null;
+                    /*]]>*/
+
+                    const reservationButtons = document.querySelectorAll('.reserveBtn');
+
+                    const modal = document.getElementById('reservationModal');
+                    const closeModalBtn = modal.querySelector('.close-button');
+                    const reservationGrid = document.getElementById('reservationGrid');
+
+                    let currentStudyroomId = null;
+                    let reservationsData = [];
+
+                    // 각 버튼에 대해 클릭 이벤트를 추가하는 반복문 실행
+                    reservationButtons.forEach(button => {
+                        button.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            const studyroomId = event.currentTarget.dataset.studyroomId;
+                            openReservationModal(studyroomId);
+                        });
+                    });
+
+                    // ===================================
+                    // 모달 제어 함수
+                    // ===================================
+                    window.openReservationModal = (studyroomId) => {
+                        currentStudyroomId = studyroomId;
+                        loadReservations(studyroomId);
+                        modal.style.display = 'flex';
+                    };
+
+                    const closeReservationModal = () => {
+                        modal.style.display = 'none';
+                    };
+
+                    closeModalBtn.addEventListener('click', closeReservationModal);
+                    modal.addEventListener('click', (event) => {
+                        if (event.target === modal) {
+                            closeReservationModal();
+                        }
+                    });
+
+                    // ===================================
+                    // 데이터 로딩 및 UI 업데이트 함수
+                    // ===================================
+                    const loadReservations = async (studyroomId) => {
+                        let reservationsData = []; // 기본값을 빈 배열로 설정
+                        try {
+                            const response = await fetch(`/classroom/${studyroomId}`);
+                            if (response.ok) {
+                                reservationsData = await response.json();
+                            } else {
+                                throw new Error('예약 정보를 불러오는 데 실패했습니다.');
+                            }
+                        } catch (error) {
+                            console.error(error);
+                        }
+                        updateSlotsWithData(reservationsData); // 항상 UI 업데이트 함수를 호출
+                    };
+
+                    const updateSlotsWithData = (reservations) => {
+                        reservationGrid.innerHTML = ''; // 기존 슬롯 초기화
+                        const today = new Date();
+
+                        const fixedHours = [18, 19, 20, 21]; // 고정된 시간대
+
+                        for (const hour of fixedHours) {
+                            const startTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour, 0, 0);
+                            const endTime = new Date(today.getFullYear(), today.getMonth(), today.getDate(), hour + 1, 0, 0);
+                            const reservation = reservations.find(res => {
+                                const resStartHour = new Date(res.startAt).getHours();
+                                return resStartHour === hour;
+                            });
+
+                            const item = document.createElement('div');
+                            item.className = 'reservation-item';
+                            item.dataset.hour = hour;
+
+                            let userHtml = '<span>-</span>';
+                            let buttonHtml = `<button class="action-button btn-reserve" data-start-time="${startTime.toISOString()}" data-end-time="${endTime.toISOString()}">予約する</button>`;
+
+                            if (reservation) {
+                                userHtml = `<span>${reservation.userNameKor}</span>`;
+                                if (currentUser && reservation.userId === currentUser.userId) {
+                                    buttonHtml = `<button class="action-button btn-cancel" data-reservation-id="${reservation.reservationId}">予約取消</button>`;
+                                } else {
+                                    buttonHtml = `<button class="action-button btn-reserved" disabled>予約中</button>`;
+                                }
+                            }
+
+                            item.innerHTML = `
+                                <span class="item-time">${hour}:00 - ${hour + 1}:00</span>
+                                <div class="item-user">${userHtml}</div>
+                                <div class="item-action">${buttonHtml}</div>
+                            `;
+                            reservationGrid.appendChild(item);
+                        }
+                        
+                        // 버튼 이벤트 핸들러 다시 바인딩
+                        bindButtonEvents();
+                    };
+
+                    const bindButtonEvents = () => {
+                        document.querySelectorAll('.btn-reserve').forEach(btn => {
+                            btn.addEventListener('click', handleReservationClick);
+                        });
+                        document.querySelectorAll('.btn-cancel').forEach(btn => {
+                            btn.addEventListener('click', handleCancellationClick);
+                        });
+                    };
+
+                    // ===================================
+                    // 예약 및 취소 핸들러
+                    // ===================================
+                    const handleReservationClick = async (event) => {
+                        if (!currentUser) {
+                            alert('ログインが必要です。');
+                            return;
+                        }
+                        const button = event.target;
+                        const reservationData = {
+                            classroomId: currentStudyroomId,
+                            startAt: button.dataset.startTime,
+                            endAt: button.dataset.endTime
+                        };
+                        await createReservation(reservationData);
+                    };
+
+                    const handleCancellationClick = async (event) => {
+                        if (!currentUser) {
+                            alert('ログインが必要です。');
+                            return;
+                        }
+                        const reservationId = event.target.dataset.reservationId;
+                        if (confirm('本当に予約をキャンセルしますか？')) {
+                            await deleteReservation(reservationId);
+                        }
+                    };
+
+                    // ===================================
+                    // API 호출 함수 (Fetch)
+                    // ===================================
+                    const createReservation = async (reservationData) => {
+                        try {
+                            const response = await fetch('/classroom', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json', 'X-XSRF-TOKEN': getCsrfToken() },
+                                body: JSON.stringify(reservationData)
+                            });
+                            if (!response.ok) {
+                                const errorText = await response.text();
+                                throw new Error(errorText || '予約に失敗しました。');
+                            }
+                            alert('予約が完了しました。');
+                            loadReservations(currentStudyroomId); // 목록 새로고침
+                        } catch (error) {
+                            console.error(error);
+                            alert(error.message);
+                        }
+                    };
+
+                    const deleteReservation = async (reservationId) => {
+                        try {
+                            const response = await fetch(`/classroom/${reservationId}`, {
+                                method: 'DELETE',
+                                headers: { 'X-XSRF-TOKEN': getCsrfToken() }
+                            });
+                            if (!response.ok) throw new Error('予約のキャンセルに失敗しました。');
+                            alert('予約がキャンセルされました。');
+                            loadReservations(currentStudyroomId); // 목록 새로고침
+                        } catch (error) {
+                            console.error(error);
+                            alert(error.message);
+                        }
+                    };
+
+                    // CSRF 토큰을 쿠키에서 가져오는 헬퍼 함수
+                    const getCsrfToken = () => {
+                        const value = `; ${document.cookie}`;
+                        const parts = value.split(`; XSRF-TOKEN=`);
+                        if (parts.length === 2) return parts.pop().split(';').shift();
+                    };
+                });
+            </script>
         </th:block>
     </body>
 </html>
